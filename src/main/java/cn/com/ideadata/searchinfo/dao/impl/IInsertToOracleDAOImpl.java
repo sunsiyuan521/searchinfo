@@ -3,7 +3,9 @@ package cn.com.ideadata.searchinfo.dao.impl;
 import cn.com.ideadata.searchinfo.dao.IInsertToOracleDAO;
 import cn.com.ideadata.searchinfo.dao.factory.DAOFactory;
 import cn.com.ideadata.searchinfo.jdbc.JDBCHelper;
+import cn.com.ideadata.searchinfo.util.DateUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -13,28 +15,23 @@ import java.util.*;
 public class IInsertToOracleDAOImpl implements IInsertToOracleDAO {
     String sql = null;
     /**
-     * @description 把查询到的数据插入orale
+     * @description 把两个集群查出的数据插入oracle
      * @method  insert
-     * @param list_tableinfo 获得到的表信息
-     * @param laststr 读取配置文件中的表名
+     * @param args
      * @return void
-     * @date: 2017/12/6 14:47
+     * @date: 2017/12/8 11:38
      * @author:sunsiyuan
      */
-    public void insert(List<Map> list_tableinfo, String laststr) {
-        List<Object[]> insertList = new ArrayList<Object[]>();
-        DAOFactory.getGetTableNameDAO().findTableInfo(laststr);
-        for (int i = 0; i < list_tableinfo.size(); i++) {
-            Map map = list_tableinfo.get(i);
-            Set set = map.keySet();
-            Iterator it = set.iterator();
-            while (it.hasNext()) {
-                Object[] params = new Object[]{};
-                params[i] = map.get(it.next());
-                insertList.add(params);
-            }
+    public void insert(String args[]) {
+        //mysql查询出来的信息
+        String[] mysqlInfo = DAOFactory.getFindTableInfoMysqlDAO().findTableInfo(args);
+        //oracle查询出来的信息
+        String[] oracleInfo = DAOFactory.getFindTableInfoOracleDAO().findTableInfo(args);
+        sql="insert into compare_table_test VALUES(?,?,?,?,?,?,?)";
+        System.out.println(sql);
+        if (oracleInfo.length != 4){
+            JDBCHelper.getInstance().executeUpdate(sql,args[0],args[1],mysqlInfo[2],mysqlInfo[3],null,null,DateUtils.formatDate(new Date())) ;
         }
-        JDBCHelper jdbcHelper = JDBCHelper.getInstance();
-        jdbcHelper.executeBatch(sql,insertList);
+            JDBCHelper.getInstance().executeUpdate(sql,args[0],args[1],mysqlInfo[2],mysqlInfo[3],oracleInfo[2],oracleInfo[3], DateUtils.formatDate(new Date())) ;
     }
 }

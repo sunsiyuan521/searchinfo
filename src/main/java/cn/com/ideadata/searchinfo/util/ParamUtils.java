@@ -7,15 +7,18 @@ package cn.com.ideadata.searchinfo.util;
  */
 public class ParamUtils {
 	/**
-	 * 从命令行参数中提取sql脚本名
-	 * @param args 命令行参数
-	 * @return sql脚本名
+	 * @description 通过参数获取数据库名
+	 * @method  getDatabaseName
+	 * @param args
+	 * @return java.lang.String 数据库名
+	 * @date: 2017/12/8 11:19
+	 * @author:sunsiyuan
 	 */
-	public static String getSqlName(String[] args) {
+	public static String getDatabaseName(String[] args) {
 		String sqlStr = null;
 		try {
 				if(args != null && args.length > 0) {
-					sqlStr = String.valueOf(args[1]);
+					sqlStr = String.valueOf(args[0]);
 					return sqlStr;
 				}
 			} catch (Exception e) {
@@ -24,32 +27,18 @@ public class ParamUtils {
 			return null;
 	}
 	/**
-	 * 从命令行参数中提取日期字符串
-	 * @param args 命令行参数
-	 * @return 日期字符串
+	 * @description 通过参数获取表名
+	 * @method  getTableName
+	 * @param args
+	 * @return java.lang.String  表名
+	 * @date: 2017/12/8 11:19
+	 * @author:sunsiyuan
 	 */
-	public static String getTaskDate(String[] args) {
-		String datestr=null;
-		try {
-			if(args != null && args.length > 0) {
-				datestr=String.valueOf(args[0]);
-				return datestr;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	/**
-	 * 从命令行参数中提取集群ID
-	 * @param args 命令行参数
-	 * @return 集群ID
-	 */
-	public static String getClusterID(String[] args) {
+	public static String getTableName(String[] args) {
 		String clusterID=null;
 		try {
 			if(args != null && args.length > 0) {
-				clusterID=String.valueOf(args[2]);
+				clusterID=String.valueOf(args[1]);
 				return clusterID;
 			}
 		} catch (Exception e) {

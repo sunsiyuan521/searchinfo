@@ -20,8 +20,7 @@ public class IReadTBFileDAOImpl implements IReadTBFileDAO{
      * @date: 2017/12/6 12:45
      * @author:sunsiyuan
      */
-    public static String read(InputStream inputStream) {
-
+    public String read(InputStream inputStream) {
         BufferedReader reader = null;
         String laststr = "";
         try{
@@ -42,6 +41,7 @@ public class IReadTBFileDAOImpl implements IReadTBFileDAO{
                 }
             }
         }
+        System.out.println("读取配置文件获取表名");
         return laststr;
     }
 }

@@ -6,6 +6,6 @@ import java.util.Map;
 /**
  * Created by sunsiyuan on 2017/12/6.
  */
-public interface IFindTableInfoDAO {
-    List<Map> findTableInfo(String laststr);
+public interface IFindTableInfoOracleDAO {
+    String[] findTableInfo(String arg[]);
 }

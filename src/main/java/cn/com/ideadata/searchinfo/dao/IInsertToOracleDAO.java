@@ -7,5 +7,5 @@ import java.util.Map;
  * Created by sunsiyuan on 2017/12/6.
  */
 public interface IInsertToOracleDAO {
-    public void insert(List<Map> list_tableinfo, String laststr);
+    public void insert( String args[]);
 }
